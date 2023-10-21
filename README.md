@@ -1,7 +1,7 @@
 # group-13-grievance-redressal-system
 **Public Grievance Redressal System**
 
-**User Management Service**
+**Biresh: User Management Service**
 1. Task 1: Set up Spring Boot project for User Management Service.
 1. Task 2: Design API contracts using OpenAPI.
 1. Task 3: Implement CRUD operations for user data.
@@ -13,7 +13,7 @@
 1. Task 9: Set up Spring Cloud Service Registry (Eureka).
 1. Task 10: Register the service with Eureka.
 
-**Grievance Management Service**
+**Kamal: Grievance Management Service**
 1. Task 1: Set up Spring Boot project for Grievance Management Service.
 1. Task 2: Design API contracts.
 1. Task 3: Implement grievance creation and basic CRUD operations.
@@ -25,7 +25,7 @@
 1. Task 9: Implement RabbitMQ message producer for relevant events (e.g., grievance registration).
 1. Task 10: Set up Spring Cloud Gateway for routing and load balancing.
 
-**Admin Management Service**
+**Kashish: Admin Management Service**
 1. Task 1: Set up Spring Boot project for Admin Management Service.
 1. Task 2: Design API contracts.
 1. Task 3: Implement CRUD for admin data.
@@ -37,7 +37,7 @@
 1. Task 9: Implement Spring Cloud Config Server.
 1. Task 10: Write integration tests for grievance assignment functionalities.
 
-**Notification Service**
+**Raza: Notification Service**
 1. Task 1: Set up Spring Boot project for Notification Service.
 1. Task 2: Design API contracts.
 1. Task 3: Implement email and SMS notification sending functionality.
@@ -49,7 +49,7 @@
 1. Task 9: Set up a distributed tracing system with Zipkin and Sleuth.
 1. Task 10: Write integration tests for event listening and notification sending.
 
-**Analytics Service**
+**Person 5: Analytics Service**
 1. Task 1: Set up Spring Boot project for Analytics Service.
 1. Task 2: Design API contracts.
 1. Task 3: Implement API to generate various reports.

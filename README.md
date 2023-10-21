@@ -1,5 +1,5 @@
 # group-13-grievance-redressal-system
-Public Grievance Redressal System
+**Public Grievance Redressal System**
 
 **User Management Service**
 1. Task 1: Set up Spring Boot project for User Management Service.

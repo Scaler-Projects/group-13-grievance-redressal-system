@@ -49,7 +49,7 @@
 1. Task 9: Set up a distributed tracing system with Zipkin and Sleuth.
 1. Task 10: Write integration tests for event listening and notification sending.
 
-**Person 5: Analytics Service**
+**Sarvjeet: Analytics Service**
 1. Task 1: Set up Spring Boot project for Analytics Service.
 1. Task 2: Design API contracts.
 1. Task 3: Implement API to generate various reports.

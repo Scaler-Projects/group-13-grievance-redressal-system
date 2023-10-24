@@ -5,6 +5,10 @@
 
 ![Grievance Redressal System (3)](https://github.com/Scaler-Projects/group-13-grievance-redressal-system/assets/44796715/9ff976e6-18f0-4de3-93a1-9cdd9476d6dc)
 
+**Services**
+
+![image](https://github.com/Scaler-Projects/group-13-grievance-redressal-system/assets/44796715/198ec27d-53c9-49df-9ca5-4a2379608ad0)
+
 **Biresh: User Management Service**
 1. Task 1: Set up Spring Boot project for User Management Service.
 1. Task 2: Design API contracts using OpenAPI.

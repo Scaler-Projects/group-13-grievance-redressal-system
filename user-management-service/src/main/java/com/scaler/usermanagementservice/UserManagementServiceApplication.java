@@ -8,6 +8,7 @@ public class UserManagementServiceApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(UserManagementServiceApplication.class, args);
+        System.out.println("SERVER RUNNING ON PORT: "+ 4444);
     }
 
 }

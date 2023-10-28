@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -9,6 +10,7 @@
         <module name="analytics-service" />
         <module name="admin-management-service" />
         <module name="grievance-management-service" />
+        <module name="common-service" />
         <module name="user-management-service" />
         <module name="notification-service" />
       </profile>
@@ -18,6 +20,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="admin-management-service" options="-parameters" />
       <module name="analytics-service" options="-parameters" />
+      <module name="common-service" options="-parameters" />
       <module name="grievance-management-service" options="-parameters" />
       <module name="notification-service" options="-parameters" />
       <module name="user-management-service" options="-parameters" />

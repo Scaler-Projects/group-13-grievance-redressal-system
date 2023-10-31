@@ -4,12 +4,14 @@ import com.scaler.adminmanagementservice.Services.AdminServices;
 import com.scaler.adminmanagementservice.repository.AdminRepository;
 import com.scaler.adminmanagementservice.entity.UsersEntity;
 import com.scaler.adminmanagementservice.models.AdminDto;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Service
 public class AdminServicesImpl implements AdminServices {
 
     private AdminRepository adminRepository ;

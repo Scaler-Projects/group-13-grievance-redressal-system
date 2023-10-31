@@ -4,7 +4,6 @@ import com.scaler.adminmanagementservice.models.AdminDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-@Service
 public interface AdminServices {
     AdminDto updateAdmin(AdminDto updatedAdminDto);
     AdminDto createAdmin(AdminDto adminDto);

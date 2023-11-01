@@ -2,39 +2,45 @@ package com.scaler.notificationservice.service;
 
 import com.scaler.notificationservice.model.Notification;
 import com.scaler.notificationservice.model.NotificationMessageRequest;
-import com.scaler.notificationservice.rabbitMqConsumer.RabbitMQConsumer;
 import com.scaler.notificationservice.repository.NotificationUpdateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-import java.util.Objects;
-import java.util.Optional;
-
-@Service
+@Component
 public class NotificationService implements NotificationOperation {
+
+    private final NotificationUpdateRepository repository;
+
+    private  EmailService emailService;
+
+    private  SMSService smsService;
     @Autowired
-    private NotificationUpdateRepository repository;
-    @Override
+    public NotificationService(NotificationUpdateRepository repository, EmailService emailService, SMSService smsService) {
+        this.repository = repository;
+        this.emailService = emailService;
+        this.smsService = smsService;
+    }
+
+
     public void sendNotification(NotificationMessageRequest message) {
-        Notification notification= new Notification();
-        Optional<Notification> existingRecord = repository.findByGrievanceId(message.getGrievance_id());
-        saveNotificationValueToDatabase(existingRecord, notification, message);
+        emailService.fetchEmailFromDbAndSend(message);
+        smsService.fetchNumberFromDbAndSend(message);
+        saveNotificationValueToDatabase(message);
 
     }
 
-    private void saveNotificationValueToDatabase(Optional<Notification> existingRecord, Notification notification, NotificationMessageRequest message) {
-        if (existingRecord.isPresent()) {
-            notification.setNew_state(message.getNew_state());
-            notification.setPrev_state(message.getPrev_state());
-            notification.setUpdated_by(message.getUpdated_by());
-            repository.save(notification);
-        }else {
-            notification.setGrievance_id(message.getGrievance_id());
-            notification.setNew_state(message.getNew_state());
-            notification.setPrev_state(message.getPrev_state());
-            notification.setUpdated_by(message.getUpdated_by());
-            notification.setNotification_time(message.getNotification_time());
-            repository.save(notification);
-        }
+    private void saveNotificationValueToDatabase(NotificationMessageRequest message) {
+        Notification notification = new Notification();
+        notification.setGrievanceId(message.getGrievanceId());
+        notification.setNotificationTime(message.getNotificationTime());
+        notification.setNotifiedUser(message.getNotifiedUser());
+        notification.setNewState(message.getNewState());
+        notification.setPrevState(message.getPrevState());
+        notification.setUpdatedBy(message.getUpdatedBy());
+
+        repository.save(notification);
+
+
+
     }
 }

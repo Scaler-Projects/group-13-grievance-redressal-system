@@ -1,16 +1,15 @@
 package com.scaler.notificationservice.controller;
 
 import com.scaler.notificationservice.model.Notification;
+import com.scaler.notificationservice.model.NotificationMessageRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/default")
 public interface NotificationOperation {
-    @PostMapping
-    ResponseEntity<Notification> sendNotification();
+
     @GetMapping("/{id}")
     ResponseEntity<Notification> getNotificationHistoryById(@PathVariable Long id);
+    @PostMapping("/send-notification")
+    ResponseEntity sendNotification(@RequestBody NotificationMessageRequest message);
 }

@@ -12,11 +12,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @JsonIgnoreType
 public class NotificationMessageRequest {
-    private  int grievance_id;
-    private String prev_state;
-    private String new_state;
-    private String updated_by;
-    private String notified_user;
-    private long notification_time;
+    private  Long grievanceId;
+    private String prevState;
+    private String newState;
+    private String updatedBy;
+    private String notifiedUser;
+    private Long notificationTime;
 
 }

@@ -5,20 +5,29 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Getter
 @Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "notification")
 public class Notification extends BaseModel{
-    private  int grievance_id;
-    private String prev_state;
-    private String new_state;
-    private String updated_by;
-    private String notified_user;
-    private long notification_time;
+    @Column
+    private Long grievanceId;
+    @Column
+    private String prevState;
+    @Column
+    private String newState;
+    @Column
+    private String updatedBy;
+    @Column
+    private String notifiedUser;
+    @Column
+    private Long notificationTime;
 
 
 }

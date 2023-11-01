@@ -3,13 +3,14 @@ package com.scaler.notificationservice.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 @Setter
 @Getter
 @MappedSuperclass
 public class BaseModel {
     @Id
-    private Long notification_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
+    private Long notificationId;
 }

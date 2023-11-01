@@ -1,52 +1,70 @@
 package com.scaler.notificationservice.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.scaler.notificationservice.model.NotificationMessageRequest;
-import com.scaler.notificationservice.repository.NotificationUpdateRepository;
+import com.scaler.notificationservice.model.UsersEntity;
+import com.scaler.notificationservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
+@Component
 public class EmailService {
 
     private final JavaMailSender javaMailSender;
+    private final UserRepository userRepository;
 
     @Autowired
-    NotificationUpdateRepository notificationUpdateRepository;
-
-    public EmailService(JavaMailSender javaMailSender) {
+    public EmailService(JavaMailSender javaMailSender, UserRepository userRepository) {
         this.javaMailSender = javaMailSender;
+        this.userRepository = userRepository;
+
     }
 
     public void sendEmail(String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(to);
-        message.setSubject(subject);
+        message.setTo("razamustafa.8@gmail.com");
+        message.setSubject("subject");
         message.setText(text);
         javaMailSender.send(message);
     }
 
-    public void fetchEmailFromDbAndSend() {
-       // TODO Call Grievence Service to fetch current grivence_id using Rest or Feing
-        NotificationMessageRequest message = new NotificationMessageRequest();
-        int grievanceId = message.getGrievance_id();
-        String prev_state = null;
-        String new_state = null;
+    public void fetchEmailFromDbAndSend(NotificationMessageRequest message)  {
 
-
-        // Fetch the notified_user's email address from the database based on the grievance_id
-        String email = notificationUpdateRepository.findEmailByGrievanceId(grievanceId);
-
-        Object[] result=notificationUpdateRepository.findFieldsByGrievanceId(grievanceId);
-        if (result != null && result.length == 3) {
-            prev_state = (String) result[0];
-            new_state = (String) result[1];
-
+        String userName = message.getNotifiedUser();
+        UsersEntity user = userRepository.findByUsername(userName);
+        String email="";
+        String phNo="";
+        if(Objects.nonNull(user)) {
+            email = user.getEmail();
+            phNo = user.getPhone_number();
         }
-        // Send Email to recipient
-        String messageBody=prev_state + " " +new_state;
-        sendEmail(email, "state", messageBody);
+
+        Map<String, String> mapBody = new HashMap<>();
+        mapBody.put("newState", message.getNewState());
+        mapBody.put("prevState", message.getPrevState());
+        mapBody.put("updatedBy", message.getUpdatedBy());
+        String body="";
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            body= objectMapper.writeValueAsString(mapBody);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+
+
+        sendEmail(email, phNo, body);
+
 
     }
+
 }
+

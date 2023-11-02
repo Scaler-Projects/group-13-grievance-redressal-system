@@ -1,5 +1,6 @@
-package entities;
+package com.scaler.grievancemanagementservice.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,15 +13,15 @@ import javax.persistence.Id;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+@JsonIgnoreType
+public class Greivance {
     @Id
     @GeneratedValue
-    private int user_id;
-    private String username;
-    private String password;
-    private Role role_id;
-    private String email_id;
-    private String phone;
+    private int greivance_id;
+    private String description;
+    private String assignee;
+    private String createdBy;
+    private String updatedBy;
     private Long timeUpdated;
     private Long timeCreated;
 

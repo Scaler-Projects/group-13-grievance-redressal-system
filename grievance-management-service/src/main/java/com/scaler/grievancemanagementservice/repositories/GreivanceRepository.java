@@ -1,6 +1,6 @@
-package repositories;
+package com.scaler.grievancemanagementservice.repositories;
 
-import entities.Greivance;
+import com.scaler.grievancemanagementservice.entities.Greivance;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

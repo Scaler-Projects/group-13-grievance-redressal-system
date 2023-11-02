@@ -1,7 +1,6 @@
-package services;
+package com.scaler.grievancemanagementservice.services;
 
-import dtos.GreivanceDto;
-import entities.Greivance;
+import com.scaler.grievancemanagementservice.dtos.GreivanceDto;
 
 import java.util.List;
 

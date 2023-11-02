@@ -1,8 +1,8 @@
-package services;
+package com.scaler.grievancemanagementservice.services;
 
-import dtos.GreivanceDto;
-import entities.Greivance;
-import repositories.GreivanceRepository;
+import com.scaler.grievancemanagementservice.entities.Greivance;
+import com.scaler.grievancemanagementservice.repositories.GreivanceRepository;
+import com.scaler.grievancemanagementservice.dtos.GreivanceDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,6 @@ public class SelfGreivanceService implements GrevienceService{
     public GreivanceDto deleteGreivance(int id) {
         GreivanceDto greivanceDto = new GreivanceDto();
         Optional<Greivance> greivance = greivanceRepository.findById(id);
-        if(greivance.isEmpty()) return null;
         greivanceRepository.deleteById(id);
 
         return convertGreivanceToGreivanceDto(greivance.get());
@@ -49,7 +48,6 @@ public class SelfGreivanceService implements GrevienceService{
     @Override
     public GreivanceDto getGreivanceById(int id) {
         Optional<Greivance> greivance = greivanceRepository.findById(id);
-        if(greivance.isEmpty()) return null;
         return convertGreivanceToGreivanceDto(greivance.get());
     }
 

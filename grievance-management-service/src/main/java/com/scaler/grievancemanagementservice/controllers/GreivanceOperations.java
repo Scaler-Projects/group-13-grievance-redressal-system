@@ -1,14 +1,14 @@
-package controllers;
+package com.scaler.grievancemanagementservice.controllers;
 
-import dtos.GreivanceDto;
-import entities.Greivance;
+import com.scaler.grievancemanagementservice.entities.Greivance;
+import com.scaler.grievancemanagementservice.dtos.GreivanceDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@RequestMapping("/default")
+//@RequestMapping("/")
 public interface GreivanceOperations {
     @GetMapping("/")
     List<GreivanceDto> getAllGreivances();

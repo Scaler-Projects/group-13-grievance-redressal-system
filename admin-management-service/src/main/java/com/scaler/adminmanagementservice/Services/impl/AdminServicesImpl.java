@@ -72,7 +72,6 @@ public class AdminServicesImpl implements AdminServices {
         Optional<UsersEntity> admin = adminRepository.findById(id);
         if (!admin.isPresent()) return null;
         adminRepository.deleteById(id);
-
         return convertAdminEntityToAdminDto(admin.get());
     }
 

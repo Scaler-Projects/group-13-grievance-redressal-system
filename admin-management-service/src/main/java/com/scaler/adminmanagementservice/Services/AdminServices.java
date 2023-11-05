@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 public interface AdminServices {
-    AdminDto updateAdmin(AdminDto updatedAdminDto);
+    AdminDto updateAdmin(AdminDto updatedAdminDto , int id);
     AdminDto createAdmin(AdminDto adminDto);
 
     AdminDto deleteAdmin(int id);

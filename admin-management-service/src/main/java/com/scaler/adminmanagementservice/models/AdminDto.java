@@ -2,15 +2,17 @@ package com.scaler.adminmanagementservice.models;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalTime;
+
 
 @Getter
 @Setter
 public class AdminDto {
-  private Long userid ;
+  private Integer userid ;
   private String username ;
   private String password ;
   private String email ;
   private String phone ;
-  private Long timeCreated ;
-  private Long timeUpdated ;
+  private String timeCreated ;
+  private String timeUpdated ;
 }

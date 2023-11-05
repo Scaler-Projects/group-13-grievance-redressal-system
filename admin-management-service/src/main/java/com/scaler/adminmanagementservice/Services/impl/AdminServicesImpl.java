@@ -4,9 +4,11 @@ import com.scaler.adminmanagementservice.Services.AdminServices;
 import com.scaler.adminmanagementservice.repository.AdminRepository;
 import com.scaler.adminmanagementservice.entity.UsersEntity;
 import com.scaler.adminmanagementservice.models.AdminDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -14,7 +16,8 @@ import java.util.stream.Collectors;
 @Service
 public class AdminServicesImpl implements AdminServices {
 
-    private AdminRepository adminRepository ;
+    @Autowired
+    private AdminRepository adminRepository;
 
     private AdminDto convertAdminEntityToAdminDto(UsersEntity admin) {
         AdminDto adminDto = new AdminDto();
@@ -30,21 +33,22 @@ public class AdminServicesImpl implements AdminServices {
     }
 
     @Override
-    public AdminDto updateAdmin(AdminDto updatedAdminDto) {
-        Optional<UsersEntity> admin = adminRepository.findById(updatedAdminDto.getUserid().intValue());
-        if(!admin.isPresent()) return null;
-        UsersEntity updatedAdmin = admin.get();
-        updatedAdmin.setEmail(updatedAdminDto.getEmail());
-        updatedAdmin.setUser_id(updatedAdminDto.getUserid());
-        updatedAdmin.setPassword(updatedAdminDto.getPassword());
-        updatedAdmin.setTimeCreated(updatedAdminDto.getTimeCreated());
-        updatedAdmin.setUsername(updatedAdminDto.getUsername());
-        updatedAdmin.setTimeUpdated(updatedAdminDto.getTimeUpdated());
-        updatedAdmin.setPhone_number(updatedAdminDto.getPhone());
+    public AdminDto updateAdmin(AdminDto updatedAdminDto , int id) {
+        UsersEntity admin = adminRepository.findById(id).orElse(null);
+        if (admin==null) return null;
+        UsersEntity updatedAdmin = admin;
+        if(updatedAdminDto.getEmail()!=null)
+            updatedAdmin.setEmail(updatedAdminDto.getEmail());
+        if(updatedAdminDto.getPassword()!=null)
+            updatedAdmin.setPassword(updatedAdminDto.getPassword());
+        if(updatedAdminDto.getUsername()!=null)
+            updatedAdmin.setUsername(updatedAdminDto.getUsername());
+        if(updatedAdminDto.getPhone()!=null)
+            updatedAdmin.setPhone_number(updatedAdminDto.getPhone());
+        updatedAdmin.setTimeUpdated(new Date().toString());
 
         adminRepository.save(updatedAdmin);
-
-        return updatedAdminDto;
+        return convertAdminEntityToAdminDto(updatedAdmin);
 
     }
 
@@ -52,23 +56,21 @@ public class AdminServicesImpl implements AdminServices {
     public AdminDto createAdmin(AdminDto adminDto) {
         UsersEntity admin = new UsersEntity();
         admin.setEmail(adminDto.getEmail());
-        admin.setUser_id(adminDto.getUserid());
         admin.setPassword(adminDto.getPassword());
-        admin.setTimeCreated(adminDto.getTimeCreated());
+        admin.setTimeCreated(new Date().toString());
         admin.setUsername(adminDto.getUsername());
-        admin.setTimeUpdated(adminDto.getTimeUpdated());
+        admin.setTimeUpdated(new Date().toString());
         admin.setPhone_number(adminDto.getPhone());
         admin.setRole_id(1);
-        adminRepository.save(admin);
 
-        return adminDto;
+        adminRepository.save(admin);
+        return convertAdminEntityToAdminDto(admin);
     }
 
     @Override
     public AdminDto deleteAdmin(int id) {
-        AdminDto adminDto = new AdminDto();
         Optional<UsersEntity> admin = adminRepository.findById(id);
-        if(!admin.isPresent()) return null;
+        if (!admin.isPresent()) return null;
         adminRepository.deleteById(id);
 
         return convertAdminEntityToAdminDto(admin.get());
@@ -76,10 +78,10 @@ public class AdminServicesImpl implements AdminServices {
 
     @Override
     public List<AdminDto> getAllAdmins() {
-        List<UsersEntity> admins = adminRepository.findAll().stream().collect(Collectors.toList());
+        List<UsersEntity> admins = adminRepository.findUsersEntityByRole_idEquals(0);
         List<AdminDto> adminDtos = new ArrayList<>();
 
-        for(UsersEntity admin:admins){
+        for (UsersEntity admin : admins) {
             adminDtos.add(convertAdminEntityToAdminDto(admin));
         }
         return adminDtos;
@@ -88,7 +90,7 @@ public class AdminServicesImpl implements AdminServices {
     @Override
     public AdminDto getAdminById(int id) {
         Optional<UsersEntity> admin = adminRepository.findById(id);
-        if(!admin.isPresent()) return null;
+        if (!admin.isPresent()) return null;
         return convertAdminEntityToAdminDto(admin.get());
     }
 }

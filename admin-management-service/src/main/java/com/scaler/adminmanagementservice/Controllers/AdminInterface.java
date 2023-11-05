@@ -6,8 +6,8 @@ import com.scaler.adminmanagementservice.models.AdminDto;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
-@RequestMapping("/default")
+
+@RequestMapping("/v1/admin")
 public interface AdminInterface {
     @GetMapping("/")
     List<AdminDto> getAllAdmin();
@@ -18,8 +18,8 @@ public interface AdminInterface {
     @PostMapping("/create")
     AdminDto createAdmin(@RequestBody AdminDto adminDto);
 
-    @PutMapping("/")
-    Optional<AdminDto> updateAdmin(@RequestBody AdminDto updatedAdminDto);
+    @PutMapping("/{id}")
+    AdminDto updateAdmin(@RequestBody AdminDto updatedAdminDto , @PathVariable int id);
 
     @DeleteMapping("/{id}")
     AdminDto deleteAdmin(@PathVariable int id);

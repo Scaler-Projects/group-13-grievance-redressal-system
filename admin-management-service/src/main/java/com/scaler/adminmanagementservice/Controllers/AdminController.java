@@ -3,14 +3,11 @@ package com.scaler.adminmanagementservice.Controllers;
 import com.scaler.adminmanagementservice.Services.AdminServices;
 import com.scaler.adminmanagementservice.models.AdminDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/v1/admin")
 public class AdminController implements AdminInterface {
     @Autowired
     private AdminServices adminServices;
@@ -31,8 +28,8 @@ public class AdminController implements AdminInterface {
     }
 
     @Override
-    public Optional<AdminDto> updateAdmin(AdminDto updatedAdminDto) {
-        return Optional.ofNullable(adminServices.updateAdmin(updatedAdminDto));
+    public AdminDto updateAdmin(AdminDto updatedAdminDto, int id) {
+        return adminServices.updateAdmin(updatedAdminDto , id);
     }
 
     @Override

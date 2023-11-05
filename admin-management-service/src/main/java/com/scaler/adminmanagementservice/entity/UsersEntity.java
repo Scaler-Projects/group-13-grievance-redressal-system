@@ -4,9 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.threeten.bp.OffsetDateTime;
 
 import javax.persistence.*;
+import java.time.LocalTime;
+
 @Entity
 @Getter
 @Setter
@@ -19,7 +20,7 @@ public class UsersEntity extends BaseModel{
     private String password;
     private int role_id;
     private String phone_number;
-    private long timeUpdated;
-    private long timeCreated;
+    private String timeUpdated;
+    private String timeCreated;
 
 }

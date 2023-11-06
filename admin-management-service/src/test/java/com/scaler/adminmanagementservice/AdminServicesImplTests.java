@@ -1,15 +1,18 @@
 package com.scaler.adminmanagementservice;
 
 import com.scaler.adminmanagementservice.Services.impl.AdminServicesImpl;
-import com.scaler.adminmanagementservice.entity.UsersEntity;
-import com.scaler.adminmanagementservice.models.AdminDto;
-import com.scaler.adminmanagementservice.repository.AdminRepository;
+import com.scaler.commonservice.entity.RolesEntity;
+import com.scaler.commonservice.entity.UsersEntity;
+import com.scaler.commonservice.models.AdminDto;
+import com.scaler.commonservice.repository.AdminRepository;
+import com.scaler.commonservice.repository.RolesRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
@@ -27,6 +30,8 @@ public class AdminServicesImplTests {
 
     @InjectMocks
     private AdminServicesImpl adminServices;
+    @InjectMocks
+    private RolesRepository rolesRepository;
 
     private UsersEntity createMockUserEntity(int userId, String username, String email, String password, String phone) {
         UsersEntity user = new UsersEntity();
@@ -164,14 +169,16 @@ public class AdminServicesImplTests {
     @Test
     public void testGetAllAdmins_ReturnsAdminDtoList() {
         UsersEntity mockAdmin = new UsersEntity();
+        RolesEntity rolesEntity = new RolesEntity(0,"ADMIN",new Date().toString(),null);
         mockAdmin.setEmail("admin@example.com");
         mockAdmin.setPhone_number("1234567890");
         mockAdmin.setPassword("admin123");
         mockAdmin.setUser_id(1);
-        mockAdmin.setRole_id(0);
+        mockAdmin.setRole(rolesEntity);
         mockAdmin.setUsername("admin");
         UsersEntity mockUserEntity = createMockUserEntity(1, "TestUser", "test@test.com", "password", "1234567890");
         when(adminRepository.findById(1)).thenReturn(java.util.Optional.of(mockAdmin));
+        when(rolesRepository.save(Mockito.any(RolesEntity.class))).thenReturn(rolesEntity);
         when(adminRepository.save(Mockito.any(UsersEntity.class))).thenReturn(mockUserEntity);
         when(adminRepository.findById(2)).thenReturn(java.util.Optional.empty());
         List<AdminDto> adminDtos = adminServices.getAllAdmins();

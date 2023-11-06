@@ -1,0 +1,181 @@
+openapi: 3.0.0
+info:
+  title: Grievance Management Service API
+  version: 1.0.0
+  description: API contract for the Grievance Management Service
+
+servers:
+  - url: https://example.com/api/v1/
+
+paths:
+  /grievances:
+    post:
+      summary: Create a Grievance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GrievanceInput'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Grievance'
+
+    get:
+      summary: Get All Grievances
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Grievance'
+
+  /grievances/{grievance_id}:
+    get:
+      summary: Get a Grievance by ID
+      parameters:
+        - in: path
+          name: grievance_id
+          schema:
+            type: string
+          required: true
+          description: ID of the Grievance
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Grievance'
+
+    put:
+      summary: Update a Grievance
+      parameters:
+        - in: path
+          name: grievance_id
+          schema:
+            type: string
+          required: true
+          description: ID of the Grievance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GrievanceInput'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Grievance'
+
+    delete:
+      summary: Delete a Grievance
+      parameters:
+        - in: path
+          name: grievance_id
+          schema:
+            type: string
+          required: true
+          description: ID of the Grievance
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+  /grievances/{grievance_id}/status:
+    put:
+      summary: Change Grievance Status
+      parameters:
+        - in: path
+          name: grievance_id
+          schema:
+            type: string
+          required: true
+          description: ID of the Grievance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GrievanceStatusInput'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GrievanceStatusUpdate'
+
+components:
+  schemas:
+    Grievance:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        user_id:
+          type: string
+        attachment:
+          type: string
+        status:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    GrievanceInput:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        user_id:
+          type: string
+        attachment:
+          type: string
+
+    GrievanceStatusUpdate:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+        updated_at:
+          type: string
+          format: date-time
+
+    GrievanceStatusInput:
+      type: object
+      properties:
+        status:
+          type: string
+

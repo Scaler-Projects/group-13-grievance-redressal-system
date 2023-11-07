@@ -1,7 +1,7 @@
 package com.scaler.adminmanagementservice.Controllers;
 
 import com.scaler.adminmanagementservice.Services.AdminServices;
-import com.scaler.adminmanagementservice.models.AdminDto;
+import com.scaler.commonservice.models.AdminDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 

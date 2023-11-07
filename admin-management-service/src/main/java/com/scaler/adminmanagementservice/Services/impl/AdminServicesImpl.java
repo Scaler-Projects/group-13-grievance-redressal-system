@@ -1,9 +1,11 @@
 package com.scaler.adminmanagementservice.Services.impl;
 
 import com.scaler.adminmanagementservice.Services.AdminServices;
-import com.scaler.adminmanagementservice.repository.AdminRepository;
-import com.scaler.adminmanagementservice.entity.UsersEntity;
-import com.scaler.adminmanagementservice.models.AdminDto;
+import com.scaler.commonservice.repository.AdminRepository;
+import com.scaler.commonservice.entity.RolesEntity;
+import com.scaler.commonservice.entity.UsersEntity;
+import com.scaler.commonservice.models.AdminDto;
+import com.scaler.commonservice.repository.RolesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,13 +13,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 @Service
 public class AdminServicesImpl implements AdminServices {
 
     @Autowired
     private AdminRepository adminRepository;
+
+    @Autowired
+    private RolesRepository rolesRepository;
 
     private AdminDto convertAdminEntityToAdminDto(UsersEntity admin) {
         AdminDto adminDto = new AdminDto();
@@ -55,14 +60,19 @@ public class AdminServicesImpl implements AdminServices {
     @Override
     public AdminDto createAdmin(AdminDto adminDto) {
         UsersEntity admin = new UsersEntity();
+        RolesEntity rolesEntity = new RolesEntity();
+        rolesEntity.setRole_name("ADMIN");
+        rolesEntity.setRole_id(0);
+        rolesEntity.setTimeCreated(new Date().toString());
         admin.setEmail(adminDto.getEmail());
         admin.setPassword(adminDto.getPassword());
         admin.setTimeCreated(new Date().toString());
         admin.setUsername(adminDto.getUsername());
         admin.setTimeUpdated(new Date().toString());
         admin.setPhone_number(adminDto.getPhone());
-        admin.setRole_id(1);
-
+        admin.setRole(rolesEntity);
+        if(!rolesRepository.findById(0).isPresent())
+            rolesRepository.save(rolesEntity);
         adminRepository.save(admin);
         return convertAdminEntityToAdminDto(admin);
     }

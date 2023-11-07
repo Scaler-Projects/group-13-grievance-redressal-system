@@ -1,6 +1,6 @@
 package com.scaler.adminmanagementservice.Services;
 
-import com.scaler.adminmanagementservice.models.AdminDto;
+import com.scaler.commonservice.models.AdminDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

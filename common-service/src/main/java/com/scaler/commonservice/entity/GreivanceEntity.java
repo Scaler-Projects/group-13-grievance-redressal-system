@@ -1,28 +1,28 @@
-package com.scaler.grievancemanagementservice.entities;
+package com.scaler.commonservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreType
-public class Greivance {
+@Table(name = "greivances")
+public class GreivanceEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int greivance_id;
     private String description;
+    private int status;
     private String assignee;
     private String createdBy;
     private String updatedBy;
-    private Long timeUpdated;
-    private Long timeCreated;
+    private String timeUpdated;
+    private String timeCreated;
 
 }

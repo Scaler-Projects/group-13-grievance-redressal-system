@@ -1,12 +1,15 @@
 package com.scaler.grievancemanagementservice.services;
 
-import com.scaler.grievancemanagementservice.dtos.GreivanceDto;
+import com.scaler.commonservice.models.GreivanceDto;
 
 import java.util.List;
+import java.util.Optional;
 
-public interface GrevienceService {
+public interface GreivanceService {
 
     GreivanceDto createGreivance(GreivanceDto greivanceDto);
+
+    Optional<GreivanceDto> updateGreivance(int id , GreivanceDto greivanceDto);
 
     GreivanceDto deleteGreivance(int id);
 

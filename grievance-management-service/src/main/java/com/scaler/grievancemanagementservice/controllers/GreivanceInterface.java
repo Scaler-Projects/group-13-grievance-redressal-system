@@ -1,15 +1,14 @@
 package com.scaler.grievancemanagementservice.controllers;
 
-import com.scaler.grievancemanagementservice.entities.Greivance;
-import com.scaler.grievancemanagementservice.dtos.GreivanceDto;
+import com.scaler.commonservice.models.GreivanceDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-//@RequestMapping("/")
-public interface GreivanceOperations {
+@RequestMapping("/v1/greivances")
+public interface GreivanceInterface {
     @GetMapping("/")
     List<GreivanceDto> getAllGreivances();
 
@@ -20,7 +19,7 @@ public interface GreivanceOperations {
     GreivanceDto createGreivance(@RequestBody GreivanceDto greivanceDto);
 
     @PutMapping("/{id}")
-    Optional<Greivance> updateGreivance(@PathVariable int id);
+    Optional<GreivanceDto> updateGreivance(@PathVariable int id , @RequestBody GreivanceDto greivanceDto );
 
     @DeleteMapping("/{id}")
     ResponseEntity<GreivanceDto> deleteGreivance(@PathVariable int id);

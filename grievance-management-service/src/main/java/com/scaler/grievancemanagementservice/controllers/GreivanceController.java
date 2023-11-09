@@ -1,46 +1,43 @@
 package com.scaler.grievancemanagementservice.controllers;
 
-import com.scaler.grievancemanagementservice.entities.Greivance;
-import com.scaler.grievancemanagementservice.services.GrevienceService;
-import com.scaler.grievancemanagementservice.dtos.GreivanceDto;
+import com.scaler.grievancemanagementservice.services.GreivanceService;
+import com.scaler.commonservice.models.GreivanceDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/greivances")
-public class GreivanceController implements GreivanceOperations{
-
-    private GrevienceService grevienceService;
+public class GreivanceController implements GreivanceInterface {
+    @Autowired
+    private GreivanceService greivanceService;
     @Override
     public List<GreivanceDto> getAllGreivances() {
-        return grevienceService.getAllGreivances();
+        return greivanceService.getAllGreivances();
     }
 
     @Override
     public GreivanceDto getById(int id) {
-
-       return grevienceService.getGreivanceById(id);
+       return greivanceService.getGreivanceById(id);
     }
 
     @Override
     public GreivanceDto createGreivance(@RequestBody GreivanceDto greivanceDto) {
-        System.out.println("this is post mapping...");
-        return grevienceService.createGreivance(greivanceDto);
+        return greivanceService.createGreivance(greivanceDto);
     }
 
     @Override
-    public Optional<Greivance> updateGreivance(int id) {
-        return Optional.empty();
+    public Optional<GreivanceDto> updateGreivance(@PathVariable int id , @RequestBody GreivanceDto greivanceDto) {
+        return greivanceService.updateGreivance(id , greivanceDto);
     }
 
     @Override
     public ResponseEntity<GreivanceDto> deleteGreivance(int id) {
-        return new ResponseEntity<>(grevienceService.deleteGreivance(id), HttpStatus.OK);
+        return new ResponseEntity<>(greivanceService.deleteGreivance(id), HttpStatus.OK);
     }
 }

@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
+import java.util.concurrent.CountDownLatch;
 
 @Component
 public class RabbitMQConsumer {
+    private CountDownLatch latch = new CountDownLatch(1);
     private NotificationService notificationService;
     private EmailService emailService;
 
@@ -25,6 +27,7 @@ public class RabbitMQConsumer {
     //@RabbitListener(queues = "your-queue-name")
     public void receiveMessage(NotificationMessageRequest message) {
         if(Objects.nonNull(message)){
+            latch.countDown();
             notificationService.sendNotification(message);
         }
         else {
@@ -32,6 +35,9 @@ public class RabbitMQConsumer {
         }
 
 
+    }
+    public CountDownLatch getLatch() {
+        return latch;
     }
 
 

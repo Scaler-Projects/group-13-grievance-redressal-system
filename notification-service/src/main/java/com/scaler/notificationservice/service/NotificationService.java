@@ -6,6 +6,8 @@ import com.scaler.notificationservice.repository.NotificationUpdateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class NotificationService implements NotificationOperation {
 
@@ -27,6 +29,11 @@ public class NotificationService implements NotificationOperation {
         smsService.fetchNumberFromDbAndSend(message);
         saveNotificationValueToDatabase(message);
 
+    }
+
+    @Override
+    public List<Notification> getAllNotificationHistory() {
+        return repository.findAll();
     }
 
     private void saveNotificationValueToDatabase(NotificationMessageRequest message) {

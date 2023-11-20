@@ -4,21 +4,27 @@ import com.scaler.notificationservice.model.Notification;
 import com.scaler.notificationservice.model.NotificationMessageRequest;
 import com.scaler.notificationservice.rabbitMqConsumer.MessageSender;
 import com.scaler.notificationservice.rabbitMqConsumer.RabbitMQConsumer;
+import com.scaler.notificationservice.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("v1/api/notifications")
 public class NotificationController implements NotificationOperation {
    private RabbitMQConsumer rabbitMQConsumer;
    private MessageSender messageSender;
+
+   private NotificationService notificationService;
     @Autowired
-    public NotificationController(RabbitMQConsumer rabbitMQConsumer,MessageSender messageSender) {
+    public NotificationController(RabbitMQConsumer rabbitMQConsumer,MessageSender messageSender,NotificationService notificationService) {
         this.rabbitMQConsumer = rabbitMQConsumer;
         this.messageSender=messageSender;
+        this.notificationService=notificationService;
     }
 
     @Override
@@ -42,6 +48,12 @@ public class NotificationController implements NotificationOperation {
     public ResponseEntity sendNotification(NotificationMessageRequest message) {
         messageSender.sendMessage(message);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<Notification>> getAllNotificationHistory() {
+        List<Notification> notification=notificationService.getAllNotificationHistory();
+        return new ResponseEntity<>(notification,HttpStatus.OK);
     }
 
 }
